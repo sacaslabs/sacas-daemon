@@ -1,0 +1,50 @@
+# sacas-daemon .gitignore
+
+# Rust build artifacts
+/target/
+**/*.rs.bk
+*.pdb
+
+# Cargo lock (include for binaries)
+# Cargo.lock
+
+# Environment and secrets
+.env
+.env.local
+.env.*.local
+
+# IDE
+.idea/
+.vscode/
+*.swp
+*.swo
+*~
+.metals/
+.bsp/
+
+# macOS
+.DS_Store
+.AppleDouble
+.LSOverride
+
+# Backup and temporary files
+*.backup
+*.tmp
+*.bak
+*~
+
+# Logs
+*.log
+logs/
+
+# Build outputs
+*.so
+*.dylib
+*.dll
+*.exe
+
+# Test artifacts
+.test-output/
+
+# Documentation builds
+/book/

@@ -1,0 +1,126 @@
+syntax = "proto3";
+
+package sacas;
+
+service GameService {
+  rpc GetStatus(GetStatusRequest) returns (GetStatusResponse);
+  rpc ScanNetwork(ScanNetworkRequest) returns (ScanNetworkResponse);
+  rpc SimulateBattle(SimulateBattleRequest) returns (SimulateBattleResponse);
+  rpc ExecuteAttack(ExecuteAttackRequest) returns (ExecuteAttackResponse);
+  rpc UpdateDefense(UpdateDefenseRequest) returns (UpdateDefenseResponse);
+  rpc GetParasites(GetParasitesRequest) returns (GetParasitesResponse);
+  rpc GetClimate(GetClimateRequest) returns (GetClimateResponse);
+}
+
+message GetStatusRequest {}
+
+message GetStatusResponse {
+  string player_id = 1;
+  uint64 karma = 2;
+  uint64 entropy = 3;
+  uint64 capacity = 4;
+  double yield_per_tick = 5;
+  Defense defense = 6;
+  Position position = 7;
+  double network_quality = 8;
+  uint32 parasite_count = 9;
+  double passive_income = 10;
+  Climate climate = 11;
+}
+
+message Defense {
+  uint64 l1 = 1;
+  uint64 l2 = 2;
+  uint64 l3 = 3;
+  optional int64 cooldown_seconds = 4;
+}
+
+message Position {
+  repeated double latency_vector = 1;
+  optional Coords coords = 2;
+}
+
+message Coords {
+  double x = 1;
+  double y = 2;
+}
+
+message Climate {
+  string code = 1;
+  string description = 2;
+}
+
+message ScanNetworkRequest {
+  optional double max_distance = 1;
+  optional uint64 min_karma = 2;
+}
+
+message ScanNetworkResponse {
+  repeated Node nodes = 1;
+}
+
+message Node {
+  string id = 1;
+  uint64 karma = 2;
+  double distance = 3;
+  double noise = 4;
+  optional Defense estimated_defense = 5;
+}
+
+message SimulateBattleRequest {
+  string target_id = 1;
+  uint64 attack_l1 = 2;
+  uint64 attack_l2 = 3;
+  uint64 attack_l3 = 4;
+}
+
+message SimulateBattleResponse {
+  double l1_crush_probability = 1;
+  double l2_intel_probability = 2;
+  double l3_parasitize_probability = 3;
+  int64 expected_roi = 4;
+  string risk_level = 5;
+}
+
+message ExecuteAttackRequest {
+  string target_id = 1;
+  repeated uint64 attack_array = 2;
+}
+
+message ExecuteAttackResponse {
+  string session_id = 1;
+  bool l1_crushed = 2;
+  bool l2_intel_success = 3;
+  optional uint64 l2_revealed_d3 = 4;
+  bool l3_parasitized = 5;
+  uint64 stolen_entropy = 6;
+  double passive_yield = 7;
+}
+
+message UpdateDefenseRequest {
+  repeated uint64 defense_array = 1;
+}
+
+message UpdateDefenseResponse {
+  bool success = 1;
+  optional string error = 2;
+}
+
+message GetParasitesRequest {}
+
+message GetParasitesResponse {
+  repeated Parasite parasites = 1;
+}
+
+message Parasite {
+  string node_id = 1;
+  double tax_rate = 2;
+  double yield_per_tick = 3;
+  uint64 total_collected = 4;
+}
+
+message GetClimateRequest {}
+
+message GetClimateResponse {
+  Climate climate = 1;
+}
